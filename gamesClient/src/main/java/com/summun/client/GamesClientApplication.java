@@ -47,6 +47,8 @@ public class GamesClientApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("-----------------------------------");
+		System.out.println("-----------------------------------");
 		System.out.println("        APLICACIÓN KKGAMES CLIENTE");
 		System.out.println("-----------------------------------");
 
@@ -56,7 +58,7 @@ public class GamesClientApplication implements CommandLineRunner {
 			System.out.println("Bienvenido a la aplicacion de KKgames");
 			//--------------------- MENU --------------------------
 			// boolean para controlar la salida del do while.
-			boolean exitMenu = true;
+			boolean exitMenu = false;
 			do {
 				// Solicita al usuario que elija una opcion por consola.
 				System.out.println(
@@ -114,7 +116,7 @@ public class GamesClientApplication implements CommandLineRunner {
 						// Al añadir el objeto nos devuelve el objeto añadido lo almacenamos para pintarlo por consola
 						Game nGame = spg.addGame(g1);
 						
-						if (nGame != null) {
+						if (nGame == null) {
 							System.out.println("Ocurrio un error al añadir el juego te he dicho que no toques nada...");
 						}else {
 							System.out.println("run -> Juego dado de alta " + nGame);
@@ -181,10 +183,10 @@ public class GamesClientApplication implements CommandLineRunner {
 						System.out.println("Introduce el ID del videojuego");
 						// Lee nombre introducido por consola y lo almacena en la variable.
 						Game g3 = spg.getGamebyId(Integer.parseInt(sc.nextLine()));;
-						if (g3 != null) {
+						if (g3 == null) {
 							System.out.println("Ups tu juego no esta, se lo ha comido el ");
 						}else {
-							System.out.println("run -> Juego dado de alta " + g3);
+							System.out.println("run -> Juego encontrado: " + g3);
 						}
 					
 						break;
@@ -208,7 +210,7 @@ public class GamesClientApplication implements CommandLineRunner {
 				
 				
 			// Fin del do while, comprueba si el boolean es true.
-			}while(exitMenu);
+			}while(!exitMenu);
 			stopApp();
 		// Captura las posibles excepciones.	
 		} catch (Exception e) {
