@@ -44,7 +44,7 @@ public class ServiceProxyGame {
 					return null;
 				}
 			}catch (HttpClientErrorException e) {
-				System.out.println("obtener -> La Game NO se ha encontrado, id: " + id);
+				System.out.println("obtener -> La Juego NO se ha encontrado, id: " + id);
 			    System.out.println("obtener -> Codigo de respuesta: " + e.getStatusCode());
 			    return null;
 			}
