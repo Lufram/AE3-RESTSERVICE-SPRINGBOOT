@@ -12,11 +12,24 @@ public class DaoGame {
 	// Lista de Games donde almacenaremos 
 	public List<Game> gamesList;
 	// Contador de Games
-	public int count;
+	public long count;
 	
 	// Constructor
 	public DaoGame() {
 		super();
+		
+		System.out.println("DaoGame -> Creando la lista de Games!");
+		gamesList = new ArrayList<Game>();
+		Game g1 = new Game(count++,"League of Trolls", "RiotGames", 8);//ID: 0
+		Game g2 = new Game(count++,"Minecraft", "Mojang Studios", 7);//ID: 1
+		Game g3 = new Game(count++,"Rise of Tomb Raider", "EIDOS", 9);//ID: 2
+		Game g4 = new Game(count++,"Lary 7", "Sierra Entertainment", 11);//ID:3
+		Game g5 = new Game(count++,"FF7", "Square Enix", 10);//ID:4
+		gamesList.add(g1);
+		gamesList.add(g2);
+		gamesList.add(g3);
+		gamesList.add(g4);
+		gamesList.add(g5);
 	}
 	
 
