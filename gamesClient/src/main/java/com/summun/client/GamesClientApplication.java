@@ -73,22 +73,27 @@ public class GamesClientApplication implements CommandLineRunner {
 
 				// Lee la respuesta del usuario por consola.
 				String answer = sc.nextLine();
-				
+				int shitCont=0;
 				// Bucle que solicita un numero hasta que el valor introducido sea 1, 2 o 3.
 				while (!answer.equals("1") && !answer.equals("2") && !answer.equals("3") && !answer.equals("4")
 						&& !answer.equals("5") && !answer.equals("0")) {
 					// Contador de tontunas a mas intentos aumenta el cabreo del servidor jajaj
-					int cont=0;
-					switch (cont){
+					
+					switch (shitCont){
 						case 0: System.out.println("Tiene que escoger una de las opciones");
-						case 2: System.out.println("Te has vuelto a equivocar!!!");
-						case 3: System.out.println("Piensa bien antes de responder humano");
-						case 4: System.out.println("¿Dislexia?");
-						case 5: System.out.println("Te ha dado un iptus o es que tus padres son primos?");
+								break;
+						case 1: System.out.println("Te has vuelto a equivocar!!!");
+								break;
+						case 2: System.out.println("Piensa bien antes de responder humano");
+								break;
+						case 3: System.out.println("¿Dislexia?");
+								break;
+						case 4: System.out.println("Te ha dado un iptus o es que tus padres son primos?");
+								break;
 						default: System.out.println("404 cerebro not found");
 					}
 					// Cada intento aumenta el contador de tonteria xD
-					cont++;
+					shitCont++;
 					// Lee la respuesta del usuario por consola.
 					answer = sc.nextLine();
 				}
@@ -112,7 +117,13 @@ public class GamesClientApplication implements CommandLineRunner {
 						// Solicita por consola el nombre de la compañia a la que pertenece
 						System.out.println("Introduce la nota en JaviconCholas");
 						// Lee nombre introducido por consola y lo almacena en la variable.
-						g1.setScore(Integer.parseInt(sc.nextLine()));
+						try {
+							g1.setScore(Integer.parseInt(sc.nextLine()));
+						}catch(NumberFormatException e){
+							System.out.println("Dato de nota introducido erroneo coge aire y vuelve a empezar");
+							break;
+						}
+						
 						// Al añadir el objeto nos devuelve el objeto añadido lo almacenamos para pintarlo por consola
 						Game nGame = spg.addGame(g1);
 						
@@ -127,10 +138,19 @@ public class GamesClientApplication implements CommandLineRunner {
 						// Informa de la eleccion del cliente
 						System.out.println("Ha seleccionado dar de baja un videojuego");
 						System.out.println("Borra el fornite y veras la gente llorando en los foros muahhhah");
-						// Solicita por consola el nombre del libro
+						// Solicita por consola el nombre del juego
 						System.out.println("Introduce el ID del videojuego");
 						// Lee nombre introducido por consola y lo almacena en la variable.
-						long delId = Long.parseLong(sc.nextLine());
+						long delId;
+						
+						try {
+							delId = Long.parseLong(sc.nextLine());
+						}catch(NumberFormatException e){
+							System.out.println("Id introducido erroneo coge aire y vuelve a empezar");
+							break;
+						}
+						
+						
 						// Devuelve un boolean y lo almacenamos en la variable
 						boolean isDeleted = spg.deleteGameById(delId);
 						
@@ -148,10 +168,16 @@ public class GamesClientApplication implements CommandLineRunner {
 						System.out.println("Te estoy viiigilaaaandoooo, veo lo que haces...");
 						// Creamos un nuevo objeto de la clase Game sin argumentos
 						Game g2 = new Game();
-						// Solicita por consola el nombre del libro
+						// Solicita por consola el nombre del juego
 						System.out.println("Introduce el ID del videojuego");
 						// Lee nombre introducido por consola y lo almacena en la variable.
-						g2.setId(Long.parseLong(sc.nextLine()));
+						
+						try {
+							g2.setId(Long.parseLong(sc.nextLine()));
+						}catch(NumberFormatException e){
+							System.out.println("Id introducido erroneo coge aire y vuelve a empezar");
+							break;
+						}
 						// Solicita por consola el nombre del videojuego
 						System.out.println("Introduce el nombre del videojuego");
 						// Lee nombre introducido por consola y lo almacena en la variable.
@@ -163,7 +189,12 @@ public class GamesClientApplication implements CommandLineRunner {
 						// Solicita por consola el nombre de la compañia a la que pertenece
 						System.out.println("Introduce la nota en JaviconCholas");
 						// Lee nombre introducido por consola y lo almacena en la variable.
-						g2.setScore(Integer.parseInt(sc.nextLine()));
+						try {
+							g2.setScore(Integer.parseInt(sc.nextLine()));
+						}catch(NumberFormatException e){
+							System.out.println("Dato de nota introducido erroneo coge aire y vuelve a empezar");
+							break;
+						}
 						// Al añadir el objeto nos devuelve el objeto añadido lo almacenamos para pintarlo por consola
 						boolean isModify = spg.modifyGame(g2);
 						
@@ -179,12 +210,21 @@ public class GamesClientApplication implements CommandLineRunner {
 						// Informa de la eleccion del cliente
 						System.out.println("Ha seleccionado buscar un videojuego");
 						System.out.println("Busca Toby, busca");
-						// Solicita por consola el nombre del libro
+						// Solicita por consola el nombre del Juego
 						System.out.println("Introduce el ID del videojuego");
 						// Lee nombre introducido por consola y lo almacena en la variable.
-						Game g3 = spg.getGamebyId(Integer.parseInt(sc.nextLine()));;
+						long gId;
+						
+						try {
+							gId = Long.parseLong(sc.nextLine());
+						}catch(NumberFormatException e){
+							System.out.println("Id introducido erroneo coge aire y vuelve a empezar");
+							break;
+						}
+						
+						Game g3 = spg.getGamebyId(gId);;
 						if (g3 == null) {
-							System.out.println("Ups tu juego no esta, se lo ha comido el ");
+							System.out.println("Ups tu juego no esta, se lo ha comido el robogato ");
 						}else {
 							System.out.println("run -> Juego encontrado: " + g3);
 						}

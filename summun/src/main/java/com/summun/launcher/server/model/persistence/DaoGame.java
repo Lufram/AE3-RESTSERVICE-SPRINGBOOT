@@ -60,11 +60,23 @@ public class DaoGame {
 	
 	/**
 	 * Metodo que introduce una Game al final de la lista
-	 * @param p la Game que queremos introducir
+	 * @param g la Game que queremos introducir
+	 * @return si esta añadido o no
 	 */
-	public void add(Game g) {
-		g.setId(count++);
-		gamesList.add(g);
+	public boolean add(Game g) {
+		 for(Game n: gamesList) {
+	        if (g.getName().trim().equalsIgnoreCase(n.getName())) {
+	            g = null;
+	        break;
+	        }
+	     }
+	     if(g != null) {
+	         g.setId(count++);
+	         gamesList.add(g);
+	         return true;
+	     }else {
+	         return false;
+	     }
 	}
 	
 	/**
@@ -89,17 +101,36 @@ public class DaoGame {
 	 * @return la Game modificada en caso de que exista, null en caso
 	 * contrario
 	 */
-	public Game update(Game g) {
-		try {
-			Game gAux = gamesList.get((int) g.getId());
-			gAux.setName(g.getName());
-			gAux.setCompany(g.getCompany());
-			
-			return gAux;
-		} catch (IndexOutOfBoundsException iobe) {
-			System.out.println("update -> Game fuera de rango");
-			return null;
-		}
+	public String update(Game g) {
+		
+		Game vUpdated = null;
+	        String res = "";
+	        for (Game n: gamesList) {
+	            if(n.getId() == g.getId()) {
+	                vUpdated = n;
+	            }
+	            if(n.getName().trim().equalsIgnoreCase(g.getName().trim())) {
+	            	res = "Exist";
+	                break;
+	            }
+
+	        }
+	        try {
+	            if(res.equalsIgnoreCase("Exist") ) {
+	                System.out.println("Ya existe un videojuego con este nombre");
+	                res = "Exist";
+	            }else {
+	                vUpdated.setName(g.getName());
+	                vUpdated.setCompany(g.getCompany());
+	                vUpdated.setScore(g.getScore());
+	                res = "VideojuegoModificado";
+	            }
+	            return res;
+	        } catch (NullPointerException e) {
+	            System.out.println("No existe este videojuego");
+	            return "NoExist";
+	        }
+	        
 	}
 	
 	/**

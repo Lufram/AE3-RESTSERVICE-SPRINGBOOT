@@ -28,14 +28,14 @@ public class ServiceProxyGame {
 		 * En caso de que el id no exita arrojaria una expcepcion que se captura
 		 * para sacar el codigo de respuesta
 		 * 
-		 * @param id que queremos obtener
+		 * @param gId que queremos obtener
 		 * @return retorna la Game que estamos buscando, null en caso de que la
 		 * Game no se encuentre en el servidor (devuelva 404) o haya habido algun
 		 * otro error.
 		 */
-		public Game getGamebyId(int id){
+		public Game getGamebyId(long gId){
 			try {
-				ResponseEntity<Game> re = restTemplate.getForEntity(URL + id, Game.class);
+				ResponseEntity<Game> re = restTemplate.getForEntity(URL + gId, Game.class);
 				HttpStatus hs= re.getStatusCode();
 				if(hs == HttpStatus.OK) {				
 					return re.getBody();
@@ -44,7 +44,7 @@ public class ServiceProxyGame {
 					return null;
 				}
 			}catch (HttpClientErrorException e) {
-				System.out.println("obtener -> La Juego NO se ha encontrado, id: " + id);
+				System.out.println("obtener -> El Juego NO se ha encontrado, id: " + gId);
 			    System.out.println("obtener -> Codigo de respuesta: " + e.getStatusCode());
 			    return null;
 			}
@@ -63,7 +63,7 @@ public class ServiceProxyGame {
 				System.out.println("alta -> Codigo de respuesta " + re.getStatusCode());
 				return re.getBody();
 			} catch (HttpClientErrorException e) {
-				System.out.println("alta -> La Game NO se ha dado de alta, id: " + p);
+				System.out.println("alta -> El Juego NO se ha dado de alta, id: " + p);
 			    System.out.println("alta -> Codigo de respuesta: " + e.getStatusCode());
 			    return null;
 			}
@@ -73,17 +73,17 @@ public class ServiceProxyGame {
 		 * 
 		 * Modifica una Game en el servicio REST
 		 * 
-		 * @param p la Game que queremos modificar, se hara a partir del 
+		 * @param g el Juego que queremos modificar, se hara a partir del 
 		 * id por lo que tiene que estar relleno.
 		 * @return true en caso de que se haya podido modificar la Game. 
 		 * false en caso contrario.
 		 */
-		public boolean modifyGame(Game p){
+		public boolean modifyGame(Game g){
 			try {
-				restTemplate.put(URL + p.getId(), p, Game.class);
+				restTemplate.put(URL + g.getId(), g, Game.class);
 				return true;
 			} catch (HttpClientErrorException e) {
-				System.out.println("modificar -> El Game NO se ha modificado, id: " + p.getId());
+				System.out.println("modificar -> El Juego NO se ha modificado, id: " + g.getId());
 			    System.out.println("modificar -> Codigo de respuesta: " + e.getStatusCode());
 			    return false;
 			}
@@ -91,9 +91,9 @@ public class ServiceProxyGame {
 		
 		/**
 		 * 
-		 * Borra una Game en el servicio REST
+		 * Borra una Juego en el servicio REST
 		 * 
-		 * @param id el id de la Game que queremos borrar.
+		 * @param id el id de Juego que queremos borrar.
 		 * @return true en caso de que se haya podido borrar la Game. 
 		 * false en caso contrario.
 		 */
@@ -118,10 +118,10 @@ public class ServiceProxyGame {
 		 * @return el listado de las Games segun el parametro de entrada o 
 		 * null en caso de algun error con el servicio REST
 		 */
-		public List<Game> toListGames(String nombre){
+		public List<Game> toListGames(String name){
 			String queryParams = "";		
-			if(nombre != null) {
-				queryParams += "?nombre=" + nombre;
+			if(name != null) {
+				queryParams += "?name=" + name;
 			}
 			
 			try {
@@ -130,7 +130,7 @@ public class ServiceProxyGame {
 				Game[] arrayGames = response.getBody();
 				return Arrays.asList(arrayGames);
 			} catch (HttpClientErrorException e) {
-				System.out.println("listar -> Error al obtener la lista de Games");
+				System.out.println("listar -> Error al obtener la lista de Juegos");
 			    System.out.println("listar -> Codigo de respuesta: " + e.getStatusCode());
 			    return null;
 			}

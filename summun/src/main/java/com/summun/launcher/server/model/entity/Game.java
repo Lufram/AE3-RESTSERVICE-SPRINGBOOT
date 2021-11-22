@@ -3,8 +3,7 @@ package com.summun.launcher.server.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class Game {
 	
 	private long id;
@@ -12,6 +11,18 @@ public class Game {
 	private String company;
 	private int score;
 	
+	public Game() {
+		super();
+	}
+	
+	public Game(long id, String name, String company, int score) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.company = company;
+		this.score = score;
+	}
+
 	@Override
 	public String toString() {
 		return "Game [id=" + id + ", name=" + name + ", company=" + company + ", score=" + score + "]";
