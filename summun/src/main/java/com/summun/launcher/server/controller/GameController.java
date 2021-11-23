@@ -93,7 +93,7 @@ public class GameController {
 		if(gUpdate.equalsIgnoreCase("VideojuegoModificado")) {
             return new ResponseEntity<Game>(HttpStatus.OK);
         }else if(gUpdate.equalsIgnoreCase("Exist")){
-            return new ResponseEntity<Game>(HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<Game>(HttpStatus.BAD_REQUEST);
         }else{
             return new ResponseEntity<Game>(HttpStatus.NOT_FOUND);
         }
