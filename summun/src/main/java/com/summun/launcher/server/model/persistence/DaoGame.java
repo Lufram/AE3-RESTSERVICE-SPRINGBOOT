@@ -18,7 +18,7 @@ public class DaoGame {
 	public DaoGame() {
 		super();
 		
-		System.out.println("DaoGame -> Creando la lista de Games!");
+		System.out.println("DaoGame -> Creando la lista de Juegos!");
 		gamesList = new ArrayList<Game>();
 		Game g1 = new Game(count++,"League of Trolls", "RiotGames", 8);//ID: 0
 		Game g2 = new Game(count++,"Minecraft", "Mojang Studios", 7);//ID: 1
@@ -36,15 +36,23 @@ public class DaoGame {
 	// METODOS
 
 	/**
-	 * Devuelve un juego a partir de su posicion del array
-	 * @param posicion la posicion del arrya que buscamos
+	 * Devuelve un juego a partir de su id
+	 * @param id del juego
 	 * @return el juego que ocupe en la posicion del array, null en caso de
 	 * que no exista o se haya ido fuera de rango del array
 	 */
-	public Game get(int position) {
+	public Game get(int id) {
 		try {
-			return gamesList.get(position);
-		} catch (IndexOutOfBoundsException iobe) {
+			Game g = null;
+            for(Game n: gamesList) {
+                if (id == n.getId()) {
+                   g = n;
+                   break;
+                }
+            }
+            return g;
+            
+		} catch (IndexOutOfBoundsException e) {
 			System.out.println("Juego fuera de rango");
 			return null;
 		}
@@ -80,17 +88,26 @@ public class DaoGame {
 	}
 	
 	/**
-	 * Borramos una Game de una posicion del array
-	 * @param posicion la posicion a borrar
+	 * Borramos un Juego por su Id
+	 * @param id del juego
 	 * @return devolvemos la Game que hemos quitado del array, 
 	 * o null en caso de que no exista.
 	 */
-	public Game delete(int posicion) {
+	public boolean delete(int id) {
 		try {
-			return gamesList.remove(posicion);
+			Game g = null;
+            for(Game n: gamesList) {
+                if (id == n.getId()) {
+                   g = n;
+                   break;
+                }
+            }
+           
+			return gamesList.remove(g);
+			
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("delete -> Game fuera de rango");
-			return null;
+			return false;
 		}
 	}
 	

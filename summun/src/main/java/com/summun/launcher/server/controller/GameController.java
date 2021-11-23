@@ -93,7 +93,7 @@ public class GameController {
 		if(gUpdate.equalsIgnoreCase("VideojuegoModificado")) {
             return new ResponseEntity<Game>(HttpStatus.OK);
         }else if(gUpdate.equalsIgnoreCase("Exist")){
-            return new ResponseEntity<Game>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Game>(HttpStatus.NOT_MODIFIED);
         }else{
             return new ResponseEntity<Game>(HttpStatus.NOT_FOUND);
         }
@@ -104,8 +104,9 @@ public class GameController {
 	@DeleteMapping(path="games/{id}")
 	public ResponseEntity<Game> deleteGame(@PathVariable int id) {
 		System.out.println("ID a borrar: " + id);
-		Game g = daoGame.delete(id);
-		if(g != null) {
+		Game g = daoGame.get(id);
+		boolean isDelete = daoGame.delete(id);
+		if(isDelete == true) {
 			return new ResponseEntity<Game>(g,HttpStatus.OK);//200 OK
 		}else {
 			return new ResponseEntity<Game>(HttpStatus.NOT_FOUND);//404 NOT FOUND
